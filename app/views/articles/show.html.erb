@@ -1,0 +1,24 @@
+<div class="padd">
+	<h1><%= @article.title %></h1>
+	<p>
+		<%= @article.body %>
+	</p>
+	<% unless @article.user.nil? %>
+		<p>Escrito por: <%= @article.user.email %>
+	<% end %> - Visitas: <%= @article.visits_count %></p>
+	<%= link_to 'Eliminar', @article, method: :delete, class:"be-red white btn-show" %>
+	<%= link_to 'Editar', edit_article_path(@article), class:"be-red white btn-show" %>
+	<%= link_to 'Atrás', articles_path, style:"margin-left:5px" %>
+	<div class="field">
+		<h3>Comentarios</h3>
+		<%= render "comments/form" %>
+		<ul id="comments-box">
+			<% @article.comments.each do |comment| %>
+				<li>
+					<p class="autor"><%= comment.user.email %> - <%= comment.created_at %></p>
+					<p><%= comment.body %></p>
+				</li>
+			<% end %>
+		</ul>
+	</div> 
+</div>
